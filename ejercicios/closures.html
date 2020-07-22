@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Closures</title>
+</head>
+<body>
+    <p>Abre la consola</p>
+    <script>
+        // IIFE
+        (function() {
+            let color = 'Verde';
+
+            function printColor() {
+                console.log(color)
+            }
+
+            printColor();
+        })()
+
+        // Funciones que regresan funciones
+        function makeColorPrinter(color) {
+            let colorMessage = `The color is ${color}`;
+
+            return function () {
+                console.log(colorMessage);
+            }
+        }
+
+        let greenPrinter = makeColorPrinter('green');
+        console.log(greenPrinter());
+
+        // Variables privadas
+        function makeCounter(n) {
+            let counter = n;
+
+            return {
+                increase: function() {
+                    counter = counter + 1;
+                },
+                decrease: function() {
+                    counter = counter - 1;
+                },
+                getCount: function () {
+                    return counter;
+                }
+            }
+        }
+
+        let counter = makeCounter(8);
+        counter.increase();
+        console.log(counter.getCount())
+    </script>
+</body>
+</html>
