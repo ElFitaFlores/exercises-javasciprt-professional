@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call, apply y bind</title>
+</head>
+<body>
+    <ul>
+        <li><button class="call-to-action">Aprender</button></li>
+        <li><button class="call-to-action">Aprender mas</button></li>
+        <li><button class="call-to-action">Aprender aun mas</button></li>
+    </ul>
+    <script>
+        // Establece this usando call
+        function saludar() {
+            console.log(`Hola soy ${this.name} ${this.apellido}`);
+        }
+
+        const rafael = {
+            name: 'Rafael',
+            apellido: 'Flores'
+        }
+
+        saludar.call(rafael);
+
+        // Call con parametros
+        function caminar(distancia, direccion) {
+            console.log(`${this.name} camina ${distancia} metros hacia el ${direccion}`);
+        }
+
+        caminar.call(rafael, 450, 'norte');
+
+        // Establece this usando apply
+        caminar.apply(rafael, [520, 'sur']);
+
+        // Establece this usando bind
+        const daniel = {
+            name: 'Daniel',
+            apellido: 'Lopez'
+        }
+
+        const daniSaluda = saludar.bind(daniel);
+        daniSaluda();
+
+        const daniCamina = caminar.bind(daniel, 500);
+        daniCamina('oeste');
+
+        // Escenarios
+        const buttons = document.getElementsByClassName('call-to-action');
+
+        Array.prototype.forEach.call(buttons, button => {
+            button.onclick = () => { alert('Estoy aprendiendo') };
+        })
+    </script>
+</body>
+</html>
